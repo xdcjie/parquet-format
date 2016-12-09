@@ -178,6 +178,18 @@ enum FieldRepetitionType {
 }
 
 /**
+ *
+ * Bloom filter per column chunk
+ * All fields are required.
+ */
+struct BloomFilter{
+   1: required i32 num_bits;
+   2: required i32 num_hash_functions;
+   3: required i64 byte_length;
+   4: required i64 file_offset;
+}
+
+/**
  * Statistics per row group and per page
  * All fields are optional.
  */
@@ -189,6 +201,8 @@ struct Statistics {
    3: optional i64 null_count;
    /** count of distinct values occurring */
    4: optional i64 distinct_count;
+   /** bloom filter of distinct values occurring */
+   5: optional BloomFilter bloom_filter;
 }
 
 /**
